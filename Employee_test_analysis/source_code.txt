@@ -1,0 +1,21 @@
+Project Name : Employee Training Score Analysis.
+
+>> We need to perform the following tasks:
+
+ 
+
+1. Find the number of employees who failed in term 1 (pass mark = 37) for this execute the below command
+
+   >> db.employeedata.find({"term1":{$lt:37}}) // (it gives us the no.of employees who have scored below 37 marks)
+
+2. Find the average score of employees for term 1 for this execute the below command
+
+   >> db.employeedata.aggregate{[{$group:{_id:"$name",avgScore:{$avg:"$term1"}}}]) // (it gives us the average score of employees for only term 1)
+
+3. Find employees who passed in all three terms for this execute the below command
+
+   >> db.employeedata.find({$and:[{"term1":{$gte:37}},{"term2":{$gte:37}},{"term3:{$gte:37}}]}) // (it gives us the no.of employees who have scored more than or equal to 37 marks)
+
+4. Find the average score of employees for this execute the below command
+
+   >> db.employeedata.aggregate([{$project:{_id:"$name",avgScore:{$avg:{$sum:["$term1","term2","term3"]}}}}]) // (it gives us the average score of employees by choosing all terms)    
